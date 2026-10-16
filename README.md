@@ -79,7 +79,9 @@ Las que necesitan al administrador lo levantan en una carpeta temporal: no tocan
 ## Datos y variables
 
 - `npm start` fija la fecha de trabajo en **2026-10-13** (`SANDBOX_TODAY`), la de los criterios.
-- Los pagos del Swagger quedan en `data/billing-api.sqlite`: guarda una copia antes de probar para volver al estado entregado. Para empezar de cero en Cobrix, con el servidor apagado, borra `data/cobrix.sqlite*`.
+- Los pagos del Swagger quedan en `data/billing-api.sqlite`. Para volver al estado entregado, con el servidor apagado: `git checkout data/billing-api.sqlite`. No uses `npm run seed` para eso: regenera las cuotas según la fecha del día y los números del recorrido cambian.
+- Para empezar de cero en Cobrix, con el servidor apagado, borra `data/cobrix.sqlite*`.
+- Si el 4300 o el 4310 ya están ocupados (por ejemplo, por otro `npm start`), el arranque falla con `EADDRINUSE`: apaga el otro proceso o usa `PORT` y `BILLING_API_PORT`. Si cambias el puerto del administrador, usa esa URL en Configuración.
 
 | Variable | Por defecto | Qué es |
 | --- | --- | --- |
@@ -88,6 +90,12 @@ Las que necesitan al administrador lo levantan en una carpeta temporal: no tocan
 | `COBRIX_AUDIT_DIR` | `logs/` | Registro de auditoría |
 | `COBRIX_SECRET_KEY` | Un `.key` junto a la base, creado solo | Clave que cifra la contraseña del proveedor |
 | `SANDBOX_TODAY` | `2026-10-13` | Fecha de trabajo |
+
+## Auditoría, CSV y estado de cuenta
+
+- **Auditoría:** cada acción (guardar la configuración, probar la conexión, cada corrida, cada exportación y cada estado de cuenta) agrega una línea JSON a `logs/cobrix-AAAA-MM-DD.log`, un archivo por día de Caracas: `{"at", "actor": "operador" | "sistema", "action", …}`. Nunca lleva contraseñas ni tokens. La carpeta se cambia con `COBRIX_AUDIT_DIR` y crece sin límite: rotarla es tarea del servidor (por ejemplo, con `logrotate`).
+- **CSV:** «Exportar CSV» en Clientes y en el detalle de una corrida descarga lo que muestra la tabla, con su filtro. Está hecho para Excel en español (separador `;`, montos `95,00`, UTF-8 con BOM): se abre con doble clic, sin importar.
+- **Estado de cuenta:** en el expediente, «Estado de cuenta» abre una hoja A4 con el membrete de la empresa. El PDF se saca con «Imprimir» del navegador. Sin deuda, sale como constancia.
 
 ## Documentación
 

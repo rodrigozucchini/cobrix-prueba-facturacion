@@ -183,14 +183,14 @@ El punto diferencial tiene sus propias tareas en `extras/punto-diferencial/tasks
   - cómo levantar (`npm install`, `npm start`, `npm run dev`);
   - cómo correr las pruebas;
   - la lista de verificación manual de los CA;
-  - la advertencia sobre `SANDBOX_TODAY` y `npm run seed`.
+  - la advertencia sobre `SANDBOX_TODAY` y `npm run seed` (para volver al estado entregado se usa `git checkout`).
   
   Cubre: enunciado §6. Dónde: `README.md`.
 - [x] T066 Escribir la nota de decisiones:
   - la elección del stack y del diseño;
   - las decisiones principales, con sus fuentes;
   - qué quedó fuera;
-  - qué se haría con más tiempo (cifrar la contraseña, versión y autenticación de la API, punto diferencial).
+  - qué se haría con más tiempo (la clave de la contraseña en un gestor de secretos, ya que el cifrado se hizo con D53; versión y autenticación de la API; punto diferencial).
   
   Cubre: enunciado §3.7 y §6. Dónde: `NOTA.md`.
 - [x] T067 Verificación final completa: todos los CA desde el panel, `typecheck`, `test` y `build` en verde, con la base del administrador reiniciada y Cobrix vacío. Cubre: todos los CA. Dónde: —.
